@@ -12,18 +12,19 @@ if(isset($btninicio)){
     echo $user=$_POST['Usuario'];
     echo $pass=$_POST['Contraseña'];
 
-    $sql="SELECT IdentificaUsua, ClaveUsua, concat(NombreUsua,' ', ApellidoUsua), idTipoUsua from usuarios where IdentificaUsua ='$user' and ClaveUsua = '$pass'";
+    $sql="SELECT NombreUsua,ClaveUsua,idTipoUsua from usuarios where NombreUsua='$user' AND ClaveUsua='$pass'";
     
 
     $res=$conexion->query($sql);
     $fila=$res->fetch_row();
    
    if($fila[0]==$user && $fila[1]==$pass){
-   	
+	//echo 'Could not run query: ' . mysql_error();
     	$_SESSION['user']=$fila[0];
-        $_SESSION['tipo']=$fila[3];
-    	$_SESSION['usuario']=$fila[2];
-    	$msj="Bienvenido ".$_SESSION['usuario']."";
+		//$_SESSION['usuario']=$fila[2];
+        $_SESSION['tipo']=$fila[2];
+    	
+    	$msj="Bienvenido ".$_SESSION['user']."";
 			switch ($_SESSION['tipo']) {
 				case '1':
 					# code...
@@ -43,7 +44,7 @@ if(isset($btninicio)){
     else{
     	echo "<script>
 					alert('Usuario y/o Contraseña Incorrectos');
-					location.href='../vista/index.php';
+					
 					</script>";
 
     

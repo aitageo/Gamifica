@@ -63,9 +63,9 @@ session_start();
                                 
                      }  else{
                           echo '<div class="info">
-                          <a href="#" class="d-block" style="color:#000;"><bold
-                          >'.$_SESSION['usuario'].'</bold
-                          ></a> </div>';  
+                          <a href="#" class="d-block" style="color:#000;">Bienvenido <bold
+                          >'.$_SESSION['user'].'</bold
+                          ></a></div>';  
                            }
                ?>
 
