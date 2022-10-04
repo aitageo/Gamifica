@@ -33,4 +33,6 @@ include ('../Modelo/conex.php');
   }
 
   mysqli_close($conexion);
+  //por aitageo
  ?>
+ 
