@@ -44,7 +44,7 @@ if(isset($btninicio)){
     else{
     	echo "<script>
 					alert('Usuario y/o Contraseña Incorrectos');
-					
+					header('location:../Vista/index.php?mensaje=$msj');
 					</script>";
 
     

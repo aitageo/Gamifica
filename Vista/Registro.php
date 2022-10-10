@@ -44,14 +44,6 @@
                                 </Select>
                             </div>
                             <div class="form-group">
-                                <label>Tipo de Usuario:</label>
-                                <Select class="form-control" id="Tipo" type="text"  name="TipoUsua" placeholder="Seleccione su identificacion*" required="required" data-validation-required-message="Ingrese su Nombre">
-                                    <option value="1">Administrador</option>
-                                     <option value="2">Aprendiz</option>
-                                      <option value="3">Instructor</option>
-                                </Select>
-                            </div>
-                            <div class="form-group">
                                 <label>Identificación:</label>
                                 <input class="form-control" id="identificacion" type="number"  name="IdentificaUsua" placeholder="Ingrese su numero de identificacion *" required="required" data-validation-required-message="Ingrese su identificación" />
                                 <p class="help-block text-danger"></p>

@@ -7,7 +7,7 @@ include ('../Modelo/conex.php');
 	//$usuario = 5;
 	$IdentificaUsua= intval($_POST['IdentificaUsua']);
 	$TipoDoc = $_POST['TipoDoc'];
-	$Tipousua = $_POST['TipoUsua'];
+	$Tipousua = 1;
 	$Nombre = $_POST['NombUsua'];
 	$Apellidos = $_POST['ApellUsua'];
 	$Cel = $_POST['CeluUsua'];

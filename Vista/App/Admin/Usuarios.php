@@ -17,7 +17,7 @@ error_reporting(0);
           <div class="col-md-12 ">
             <!-- Botón GUARDAR -->
               <div class="navbar navbar-expand navbar-white navbar-light justify-content-end">    
-                  <button type="button" class="btn btn-success justify-content-end "  data-toggle="modal" data-target="#staticBackdrop" style="background-color: #047c81;" >
+                  <button type="button" class="btn btn-success justify-content-end "  data-toggle="modal" data-target="#staticBackdrop"  style="background-color: #047c81;" >
                   <i class="fas fa-plus-circle"></i>
                   </button>
               </div>
@@ -118,7 +118,6 @@ error_reporting(0);
  </div>
 </div>  <hr>
 
-
   <!-- CONSULTA DE USUARIOS -->
   <div class="card card-primary">
                 <div class="card-header" style="background-color: #eafafa;">
@@ -145,9 +144,9 @@ error_reporting(0);
                       <!-- Realizamos la consulta a la base de datos -->
                      <?php 
                     include( '../../../Modelo/conex.php'); 
-                  $cons = $conexion -> query("SELECT `idUsuario`, tipodocumento.NombreTipoDoc, tipousuario.NombreTipoUsua `idTipoUsua`, `NombreUsua`, `ApellidoUsua`,  `ClaveUsua`,  `CelUsua`, `CorreoUsua` FROM `usuarios` INNER JOIN tipousuario ON usuarios.idTipoUsua = tipousuario.idTipoUsua INNER JOIN tipodocumento ON usuarios.idTipoDoc = tipodocumento.idTipoDoc ");
+                  $query = $conexion -> query("SELECT `idUsuario`, tipodocumento.NombreTipoDoc, tipousuario.NombreTipoUsua `idTipoUsua`, `NombreUsua`, `ApellidoUsua`,  `ClaveUsua`,  `CelUsua`, `CorreoUsua` FROM `usuarios` INNER JOIN tipousuario ON usuarios.idTipoUsua = tipousuario.idTipoUsua INNER JOIN tipodocumento ON usuarios.idTipoDoc = tipodocumento.idTipoDoc ");
                     
-                    while ($row = $cons -> fetch_row()) {
+                    while ($row = $query -> fetch_row()) {
                      
                    ?>
 
@@ -167,10 +166,106 @@ error_reporting(0);
                     <!-- Onclick nos dice a donde se va a dirigir cuando presione el botón-->    
                          
                      <td> <center>
-                      <button type="button" class="btn btn-primary btn-sm"  name="ModifiUsua" onclick="location='ModifiUsua.php?id=<?php echo ''.$row[0].'' ?>'" style="background-color: #ff5c51; border-color:#ff5c51 ;"><i class="fas fa-pencil-alt" ></i></button>
-                      
+                      <!----Modal Actualizar usuario-->
+                      <button type="button" class="btn btn-primary btn-sm" href="<?php echo ''.$row[0].''?>" name="ModifiUsua" data-toggle="modal" data-target="#ModifiUsua" style="background-color: #F7e71c; border-color:#F7e71c;"><i class="fas fa-pencil-alt" ></i></button>
+                      <div class="modal fade" id="ModifiUsua" data-backdrop="static" data-keyboard="false"  data-product_id="{{<?php echo ''.$row[0].'' ?>}}  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+             <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title " id="staticBackdropLabel" >Modificar Usuario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                        <!-- INICIO FORMULARIO -->
+                    <form role="form" method="POST" action="../../../Controlador/Guardarusua.php">
+                    <div class="card-body">
 
-                     <td> <center><button type="submit" class="btn btn-danger btn-sm"  value="Eliminar" name="Borrarusua" onclick="location='../../../Controlador/Borrarusua.php?id=<?php echo ''.$row[0].'' ?>'" style="background-color: #0a8d8d; border-color:#0a8d8d ;" ><i class="fas fa-trash-alt"></i></i></span></button></center></td>
+                      <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="col-md-6">Identificación</label>
+                            <input type="number" class="form-control" name="idusuario" placeholder="Identificación">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1">Tipo Documento</label>
+                            <select class="form-control" name="TipoDoc" required>
+                        <!-- Realizamos  una consulta a la tabla Tipo Documento para que me llene el Select-->
+                      <?php  
+                        include( '../../../Modelo/conex.php'); 
+                          # Consultamos a la tabla tipodocu, que es la que tiene los tipos de docuementos en la BD:
+                          $sql = "SELECT `idTipoDoc`, `NombreTipoDoc` FROM `tipodocumento`";
+                          $eje = $conexion->query($sql);
+                          # Mostramos a través de un ciclo todas las opciones válidas:
+                          while($row = $eje->fetch_row()){
+                            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+                          }
+                        ?>
+                  </select>
+                          </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="col-md-6">Nombre:</label>
+                            <input type="text" class="form-control" name="NombUsua" placeholder="Nombre">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1">Apellido</label>
+                            <input type="text" class="form-control" name="ApellUsua" placeholder="Apellido">
+                          </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="col-md-6">Tipo Usuario:</label>
+                            <select class="form-control" name="TipoUsua">
+                        <?php  
+                            include( '../../../Modelo/conex.php'); 
+
+                              # Consultamos a la tabla tipodocu, que es la que tiene los tipos de docuementos en la BD:
+                              $sql = "SELECT `idTipoUsua`, `NombreTipoUsua` FROM `tipousuario`";
+                              $eje1 = $conexion->query($sql);
+                              # Mostramos a través de un ciclo todas las opciones válidas:
+                               while($fila = $eje1->fetch_row()){
+                                echo '<option value="'.$fila[0].'">'.$fila[1].'</option>';
+                              }
+                            ?>
+                  </select>
+                          </div>
+                          
+                          
+                      </div>
+                      <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="col-md-6">Teléfono:</label>
+                            <input type="text" class="form-control" name="CeluUsua" placeholder="Teléfono">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1">Correo</label>
+                            <input type="email" class="form-control" name="CorreoUsua" placeholder="Correo">
+                          </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="col-md-6">Clave</label>
+                            <input type="text" class="form-control" name="PassUsua" placeholder="Contraseña">
+                          </div>
+                          
+                      </div>
+                    </div>
+                      <div class="card-footer">
+                      <button type="reset" class="btn btn-secondary">Limpiar</button>
+                        <button type="submit" class="btn btn-primary" name="BtnGuardar">Guardar</button>
+                      </div>
+                    </form>
+                 </div>
+            </div>
+          </div>
+       </div>
+ </div>
+</div>
+      
+<!----Fin Modal Actualizar usuario-->
+          <td> <center><button type="submit" class="btn btn-danger btn-sm"  value="Eliminar" name="Borrarusua" onclick="location='../../../Controlador/Borrarusua.php?id=<?php echo ''.$row[0].'' ?>'" style="background-color: #E41400; border-color:#E41400;" ><i class="fas fa-trash-alt"></i></i></span></button></center></td>
                        
                   </tr>
                   <?php } 
@@ -199,5 +294,6 @@ error_reporting(0);
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="./build/js/myscript.js"></script>
 </body>
 </html>

@@ -242,4 +242,4 @@ session_start();
     <!-- /.sidebar -->
   </aside>
 
-    <script src="../src/build/js/myscript.js"></script>
+    <script src="../Admin/build/js/myscript.js"></script>

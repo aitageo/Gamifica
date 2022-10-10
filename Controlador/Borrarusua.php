@@ -6,9 +6,10 @@ error_reporting(0);
 
 $id = $_REQUEST['id'];
 
-			$del = $conexion -> query("SELECT * FROM `usuarios` WHERE `idUsuario` = '$id' ");
+			$del = $conexion -> query("DELETE FROM usuarios where idUsuario=$id");
 				if ($del) {
 					echo "<script>
+					alert('Registro Eliminado');
 					location.href='../Vista/App/Admin/Usuarios.php';
 					</script>";
 				}else{
@@ -19,6 +20,7 @@ $id = $_REQUEST['id'];
 
 				}
 
-
+//"DELETE`idUsuario`, tipodocumento.NombreTipoDoc, tipousuario.NombreTipoUsua `idTipoUsua`, `NombreUsua`, `ApellidoUsua`,  `ClaveUsua`,  `CelUsua`, `CorreoUsua` FROM `usuarios` INNER JOIN tipousuario ON usuarios.idTipoUsua = tipousuario.idTipoUsua INNER JOIN tipodocumento ON usuarios.idTipoDoc = tipodocumento.idTipoDoc "
 		
  ?>
+ 

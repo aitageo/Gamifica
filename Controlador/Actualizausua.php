@@ -1,6 +1,8 @@
 <?php 
 include ('../Modelo/conex.php');
 
+
+if(isset($_POST['ModifiUsua'])){
 $usuario = $_POST['idusuario']; 
 $TipoDoc = $_POST['TipoDoc'];
 $Tipousua = $_POST['TipoUsua'];
@@ -28,5 +30,5 @@ if ($eje) {
 	</script>";
 }
 
-
+}
  ?>
