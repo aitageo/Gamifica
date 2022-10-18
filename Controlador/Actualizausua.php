@@ -2,7 +2,7 @@
 include ('../Modelo/conex.php');
 
 
-if(isset($_POST['ModifiUsua'])){
+if(isset($_POST['BtnModifica'])){
 $usuario = $_POST['idusuario']; 
 $TipoDoc = $_POST['TipoDoc'];
 $Tipousua = $_POST['TipoUsua'];
@@ -18,17 +18,17 @@ $eje = $conexion -> query("UPDATE usuario SET idUsuario ='$usuario', IdTipoDoc =
 
 
 
-if ($eje) {
-	echo "<script>
-	alert('El registro ha sido Modificado');
-	location.href='../Vista/App/Admin/index.php';
-	</script>";
-}else{
-	echo "<script>
-	alert('El registro no pudo ser Modificado');
-	location.href='../Vista/App/Admin/index.php';
-	</script>";
-}
+// if ($eje) {
+// 	echo "<script>
+// 	alert('El registro ha sido Modificado');
+// 	location.href='../Vista/App/Admin/index.php';
+// 	</script>";
+// }else{
+// 	echo "<script>
+// 	alert('El registro no pudo ser Modificado');
+// 	location.href='../Vista/App/Admin/index.php';
+// 	</script>";
+// }
 
 }
  ?>

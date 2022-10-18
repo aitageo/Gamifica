@@ -1,7 +1,8 @@
 <?php
 include("Menu.php");
 error_reporting(0); 
-?>  
+?>
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
   <!-- CONTENIDO PRINCIPAL DE LA PÁGINA -->
     <!-- Main content -->
@@ -148,6 +149,16 @@ error_reporting(0);
                     
                     while ($row = $query -> fetch_row()) {
                      
+                      $datos= $row[0];
+                      $row[1];
+                      $row[2];
+                      $row[3];
+                      $row[4];
+                      $row[5];
+                      $row[6];
+                      $row[7];
+                      
+
                    ?>
 
                   <tr>
@@ -162,13 +173,58 @@ error_reporting(0);
 
                     <td><?php echo ''.$row[7].''; ?></td>
                    
+                   
                   <!-- Si el usuario presiona el botòn Modificar ira a el archivo Modificarusua, si presiona eliminar irà a Borrarusua en la Carpeta Control--> 
                     <!-- Onclick nos dice a donde se va a dirigir cuando presione el botón-->    
                          
                      <td> <center>
-                      <!----Modal Actualizar usuario-->
-                      <button type="button" class="btn btn-primary btn-sm" href="<?php echo ''.$row[0].''?>" name="ModifiUsua" data-toggle="modal" data-target="#ModifiUsua" style="background-color: #F7e71c; border-color:#F7e71c;"><i class="fas fa-pencil-alt" ></i></button>
-                      <div class="modal fade" id="ModifiUsua" data-backdrop="static" data-keyboard="false"  data-product_id="{{<?php echo ''.$row[0].'' ?>}}  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    
+                      <button type="button" class="btn btn-primary btn-sm"  onclick="ModificaUsua('<?php echo $row[0];?>');"  name="ModificaUsua" data-toggle="modal" data-target="#ModifiUsua" style="background-color: #F7e71c; border-color:#F7e71c;"><i class="fas fa-pencil-alt" ></i></button>
+                     
+                        <!----Modal Actualizar usuario-->
+                      <div class="modal fade" id="ModifiUsua" data-backdrop="static" data-keyboard="false"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      
+                      <script>
+
+                        function ModificaUsua(data){
+                          //console.log(data);
+                          $.post('./datos.php',{
+                            iddeusuario: data
+                          },
+                          function( data,status){
+                            //defino data1 para guadar datos separados por ,
+                            let data1 = data.split(",");
+                            //defino vector de 6 posiciones
+                            var vector = new Array(6);
+                            //ingreso en data1 arrayform de data1                              
+                            data1 = Array.from(data1);
+                            //console.log(data1[0]);
+
+                            //ciclo para recorrer el array   
+                            for(let i =  0; i < data1.length ;i++)
+                            {
+                              //defino test para almacenar data en indice i
+                              let test = data1[i];       
+                              //quitar caracteres ( optimizar con regx para 1 sola linea)
+                              test = test.replace('"','');                    
+                              test = test.replace('[','');
+                              test = test.replace(']','');                   
+                              test=test.replace(/["]/g, '');
+                              //agrego al vector el valor limpio  
+                              vector[i] = test; 
+                            }
+
+                            document.getElementById("NombUsua").value= (vector[0]);
+                            document.getElementById("IdentificaUsua").value=(vector[1]);
+                            document.getElementById("ApellidoUsua").value=(vector[2]);
+                            document.getElementById("CelUsua").value=(vector[3]);
+                            document.getElementById("CorreoUsua").value=(vector[4]);
+                            document.getElementById("ClaveUsua").value=(vector[5]);
+                          }
+                          
+                          )}
+
+                      </script>
                     <div class="modal-dialog modal-xl">
              <div class="modal-content">
             <div class="modal-header">
@@ -178,14 +234,14 @@ error_reporting(0);
               </button>
             </div>
             <div class="modal-body">
-                        <!-- INICIO FORMULARIO -->
-                    <form role="form" method="POST" action="../../../Controlador/Guardarusua.php">
+                        <!-- INICIO FORMULARIO Modificar Usuario -->
+                    <form role="form" method="POST"action="../../../Controlador/Actualizausua.php >
                     <div class="card-body">
 
                       <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="col-md-6">Identificación</label>
-                            <input type="number" class="form-control" name="idusuario" placeholder="Identificación">
+                            <input type="text" class="form-control" name="IdentificaUsua" placeholder="Identificación" id="IdentificaUsua">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="exampleInputPassword1">Tipo Documento</label>
@@ -207,11 +263,11 @@ error_reporting(0);
                       <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="col-md-6">Nombre:</label>
-                            <input type="text" class="form-control" name="NombUsua" placeholder="Nombre">
+                            <input type="text" class="form-control" name="NombUsua" id="NombUsua" placeholder="Nombre">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="exampleInputPassword1">Apellido</label>
-                            <input type="text" class="form-control" name="ApellUsua" placeholder="Apellido">
+                            <input type="text" class="form-control" name="ApellUsua" placeholder="Apellido" id="ApellidoUsua">
                           </div>
                       </div>
                       <div class="form-row">
@@ -237,24 +293,24 @@ error_reporting(0);
                       <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="col-md-6">Teléfono:</label>
-                            <input type="text" class="form-control" name="CeluUsua" placeholder="Teléfono">
+                            <input type="text" class="form-control" name="CeluUsua" placeholder="Teléfono" id="CelUsua">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="exampleInputPassword1">Correo</label>
-                            <input type="email" class="form-control" name="CorreoUsua" placeholder="Correo">
+                            <input type="email" class="form-control" name="CorreoUsua" placeholder="Correo" id="CorreoUsua">
                           </div>
                       </div>
                       <div class="form-row">
                           <div class="form-group col-md-12">
                             <label for="col-md-6">Clave</label>
-                            <input type="text" class="form-control" name="PassUsua" placeholder="Contraseña">
+                            <input type="text" class="form-control" name="PassUsua" placeholder="Contraseña" id="ClaveUsua">
                           </div>
                           
                       </div>
                     </div>
                       <div class="card-footer">
                       <button type="reset" class="btn btn-secondary">Limpiar</button>
-                        <button type="submit" class="btn btn-primary" name="BtnGuardar">Guardar</button>
+                        <button type="submit" class="btn btn-primary" name="BtnModifica" <?php $row[0];?>>Guardar</button>
                       </div>
                     </form>
                  </div>
@@ -263,6 +319,7 @@ error_reporting(0);
        </div>
  </div>
 </div>
+
       
 <!----Fin Modal Actualizar usuario-->
           <td> <center><button type="submit" class="btn btn-danger btn-sm"  value="Eliminar" name="Borrarusua" onclick="location='../../../Controlador/Borrarusua.php?id=<?php echo ''.$row[0].'' ?>'" style="background-color: #E41400; border-color:#E41400;" ><i class="fas fa-trash-alt"></i></i></span></button></center></td>
