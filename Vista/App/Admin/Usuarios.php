@@ -234,13 +234,13 @@ error_reporting(0);
               </button>
             </div>
             <div class="modal-body">
-                        <!-- INICIO FORMULARIO Modificar Usuario -->
-                    <form role="form" method="POST"action="../../../Controlador/Actualizausua.php >
+                        <!-- INICIO FORMULARIO MODIFICAR USUARIO-->
+                    <form role="form" method="POST"action="../../../Controlador/Actualizausua.php" >
                     <div class="card-body">
-
-                      <div class="form-row">
+                        <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="col-md-6">Identificación</label>
+                            <input type="hidden" class="form-control" name="idUsuario" value="<?php echo $row[0];?>">
                             <input type="text" class="form-control" name="IdentificaUsua" placeholder="Identificación" id="IdentificaUsua">
                           </div>
                           <div class="form-group col-md-6">
@@ -310,7 +310,7 @@ error_reporting(0);
                     </div>
                       <div class="card-footer">
                       <button type="reset" class="btn btn-secondary">Limpiar</button>
-                        <button type="submit" class="btn btn-primary" name="BtnModifica" <?php $row[0];?>>Guardar</button>
+                        <button type="submit" class="btn btn-primary ModificaUsua" idusuario="<?php $row[0];?>" id="ModificaUsua" name="BtnModifica">Guardar</button>
                       </div>
                     </form>
                  </div>
@@ -319,9 +319,7 @@ error_reporting(0);
        </div>
  </div>
 </div>
-
-      
-<!----Fin Modal Actualizar usuario-->
+      <!----Fin Modal Actualizar usuario-->
           <td> <center><button type="submit" class="btn btn-danger btn-sm"  value="Eliminar" name="Borrarusua" onclick="location='../../../Controlador/Borrarusua.php?id=<?php echo ''.$row[0].'' ?>'" style="background-color: #E41400; border-color:#E41400;" ><i class="fas fa-trash-alt"></i></i></span></button></center></td>
                        
                   </tr>

@@ -55,11 +55,4 @@
 
 })(jQuery); // End of use strict
 
-
-//por aitageo
-
-let btn = document.getElementById('sendMessageButton');
-
-btn.addEventListener("click",()=>{
-    console.log("Haz clickeado");
-})
+ 
