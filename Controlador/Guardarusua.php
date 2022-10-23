@@ -12,7 +12,7 @@ include ('../Modelo/conex.php');
 	$Apellidos = $_POST['ApellUsua'];
 	$Cel = $_POST['CeluUsua'];
 	$correo = $_POST['CorreoUsua'];
-	$clave = $_POST['PassUsua'];
+	$clave = password_hash($_POST['PassUsua'],PASSWORD_DEFAULT);
 
 	 /* Creamos la sentencia para insertar datos en la tabla  usuario, las primeras variables corresponden a las que aparecen en la estructura de la BD y despues de Values corresponde a las que creamos anteriormente */
 

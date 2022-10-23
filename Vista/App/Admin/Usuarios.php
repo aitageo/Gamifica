@@ -40,7 +40,7 @@ error_reporting(0);
                       <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="col-md-6">Identificación</label>
-                            <input type="number" class="form-control" name="idusuario" placeholder="Identificación">
+                            <input type="text" class="form-control" name="idusuario" placeholder="Identificación">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="exampleInputPassword1">Tipo Documento</label>
@@ -129,7 +129,7 @@ error_reporting(0);
       <table id="example" class="table table-striped table-bordered">
                     <thead>
                           <tr>
-                             <th>Identificación</th>
+                             <th>Id</th>
                              <th>Tipo Doc.</th>
                              <th>Tipo Usuario</th>
                              <th>Nombres</th>
@@ -137,26 +137,20 @@ error_reporting(0);
                              <th>Clave</th>
                              <th>Teléfono</th>
                              <th>Correo</th>
+                             <th>Estado</th>
                              <th>Modificar</th>
-                             <th>Eliminar</th>
+                             <th>Cambiar Estado</th>
                           </tr>
                     </thead>
                     <tbody>
                       <!-- Realizamos la consulta a la base de datos -->
                      <?php 
                     include( '../../../Modelo/conex.php'); 
-                  $query = $conexion -> query("SELECT `idUsuario`, tipodocumento.NombreTipoDoc, tipousuario.NombreTipoUsua `idTipoUsua`, `NombreUsua`, `ApellidoUsua`,  `ClaveUsua`,  `CelUsua`, `CorreoUsua` FROM `usuarios` INNER JOIN tipousuario ON usuarios.idTipoUsua = tipousuario.idTipoUsua INNER JOIN tipodocumento ON usuarios.idTipoDoc = tipodocumento.idTipoDoc ");
+                  $query = $conexion -> query("SELECT `idUsuario`, tipodocumento.NombreTipoDoc, tipousuario.NombreTipoUsua `idTipoUsua`, `NombreUsua`, `ApellidoUsua`,  `ClaveUsua`,  `CelUsua`, `CorreoUsua`, `Estado` FROM `usuarios` INNER JOIN tipousuario ON usuarios.idTipoUsua = tipousuario.idTipoUsua INNER JOIN tipodocumento ON usuarios.idTipoDoc = tipodocumento.idTipoDoc ");
                     
                     while ($row = $query -> fetch_row()) {
                      
-                      $datos= $row[0];
-                      $row[1];
-                      $row[2];
-                      $row[3];
-                      $row[4];
-                      $row[5];
-                      $row[6];
-                      $row[7];
+                   echo $row[0];
                       
 
                    ?>
@@ -172,6 +166,7 @@ error_reporting(0);
                     <td><?php echo ''.$row[6].''; ?></td>
 
                     <td><?php echo ''.$row[7].''; ?></td>
+                    <td><?php echo ''.$row[8].''; ?></td>
                    
                    
                   <!-- Si el usuario presiona el botòn Modificar ira a el archivo Modificarusua, si presiona eliminar irà a Borrarusua en la Carpeta Control--> 
@@ -181,6 +176,9 @@ error_reporting(0);
                     
                       <button type="button" class="btn btn-primary btn-sm"  onclick="ModificaUsua('<?php echo $row[0];?>');"  name="ModificaUsua" data-toggle="modal" data-target="#ModifiUsua" style="background-color: #F7e71c; border-color:#F7e71c;"><i class="fas fa-pencil-alt" ></i></button>
                      
+                      <td> <center><button type="submit" class="btn btn-danger btn-sm" id="Eliminar" value="Eliminar" name="Borrarusua" onclick="location='../../../Controlador/Borrarusua.php?id=<?php echo $row[0];?>'" style="background-color: #E41400; border-color:#E41400;" ><i class="fas fa-trash-alt"></i></i></span></button></center></td>
+                       
+                       </tr>
                         <!----Modal Actualizar usuario-->
                       <div class="modal fade" id="ModifiUsua" data-backdrop="static" data-keyboard="false"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                       
@@ -240,8 +238,8 @@ error_reporting(0);
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="col-md-6">Identificación</label>
-                            <input type="hidden" class="form-control" name="idUsuario" value="<?php echo $row[0];?>">
-                            <input type="text" class="form-control" name="IdentificaUsua" placeholder="Identificación" id="IdentificaUsua">
+    <!--Para pasar el Id---> <input type="hidden" class="form-control" name="idUsuario" value="<?php echo $row[0];?>">
+                               <input type="text" class="form-control" name="IdentificaUsua" placeholder="Identificación" id="IdentificaUsua">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="exampleInputPassword1">Tipo Documento</label>
@@ -310,7 +308,7 @@ error_reporting(0);
                     </div>
                       <div class="card-footer">
                       <button type="reset" class="btn btn-secondary">Limpiar</button>
-                        <button type="submit" class="btn btn-primary ModificaUsua" idusuario="<?php $row[0];?>" id="ModificaUsua" name="BtnModifica">Guardar</button>
+                        <button type="submit" class="btn btn-primary ModificaUsua" id="ModificaUsua" name="BtnModifica">Guardar</button>
                       </div>
                     </form>
                  </div>
@@ -320,9 +318,7 @@ error_reporting(0);
  </div>
 </div>
       <!----Fin Modal Actualizar usuario-->
-          <td> <center><button type="submit" class="btn btn-danger btn-sm"  value="Eliminar" name="Borrarusua" onclick="location='../../../Controlador/Borrarusua.php?id=<?php echo ''.$row[0].'' ?>'" style="background-color: #E41400; border-color:#E41400;" ><i class="fas fa-trash-alt"></i></i></span></button></center></td>
-                       
-                  </tr>
+         
                   <?php } 
 
                   ?>

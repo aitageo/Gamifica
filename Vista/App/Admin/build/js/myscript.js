@@ -1,17 +1,17 @@
-alert("cargado");
-// function ch(urlPagina){ // Esta función es la que se usa para que los menus del dashboard
-//     // carguen las diferentes páginas en el contenedor.
-//     $.ajax({   // Inicio petición ajax
-//         type: "POST",
-//         url:urlPagina, // se eindica la variable recibida como parámeteo de la función la cual
-//         // contiene el nombre del archivo que se quiere cargar en el contenedor
-//         data:{},
-//         success: function(datos){       
-//             $('#qa').html(datos); // esta instrucción pega los datos obtenidos de la página en un
-//             // div que tiene como id="qa" que ese sería el contenedor
-//         }
-//     });
-// }
+
+function ch(urlPagina){ // Esta función es la que se usa para que los menus del dashboard
+    // carguen las diferentes páginas en el contenedor.
+    $.ajax({   // Inicio petición ajax
+        type: "POST",
+        url:urlPagina, // se eindica la variable recibida como parámeteo de la función la cual
+        // contiene el nombre del archivo que se quiere cargar en el contenedor
+        data:{},
+        success: function(datos){       
+            $('#qa').html(datos); // esta instrucción pega los datos obtenidos de la página en un
+            // div que tiene como id="qa" que ese sería el contenedor
+        }
+    });
+}
 
 
 const load = urlMenu => {
@@ -139,3 +139,10 @@ function actualizarTablaUsuarios() { // este es la función que tanto llamabamos
   });
 }
 
+
+
+$("#Eliminar").click(function (e) { 
+    e.preventDefault();
+    alert("Clickeado");
+    
+});

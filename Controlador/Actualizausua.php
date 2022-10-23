@@ -3,7 +3,9 @@ include ('../Modelo/conex.php');
 
 
 if(isset($_POST['BtnModifica'])){
-$usuario = $_POST['idUsuario']; 
+//$id = $_REQUEST['id'];	
+ $usuario = $_POST['idUsuario']; 
+ echo $usuario;
 $identificaUsua = intval($_POST['IdentificaUsua']);
 $TipoDoc = intval($_POST['TipoDoc']);
 $Tipousua = intval($_POST['TipoUsua']);
@@ -23,7 +25,7 @@ if ($eje) {
     mysqli_error($conexion);
 	echo "<script>
 	alert('El registro ha sido Modificado');
-	location.href='../Vista/App/Admin/index.php';
+	
 	</script>";
 }else{
 	echo "<script>
