@@ -9,6 +9,8 @@
   $row = $query->fetch_row();
 
   $data = $row;
+  $datos = $query->fetch_assoc();
+//echo json_encode(array('error'=> false, 'datos'=> $datos));
 
   echo implode(",",$data);
   // var_dump(json_encode($data));

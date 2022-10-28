@@ -2,6 +2,7 @@
 include ('../Modelo/conex.php');
    /* El  usuario debiò haber presionado el botòn guardar que lo trae hasta acà--> */
    if(isset($_POST['BtnGuardar'])) {
+	echo "hola";
 
    	 /* Creamos  unas nuevas variables con el signo $, donde almacenaremos lo que trae en los formularios en name ="idusuario", por ejemplo */
 	//$usuario = 5;

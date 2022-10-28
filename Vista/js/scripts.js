@@ -55,4 +55,71 @@
 
 })(jQuery); // End of use strict
 
- 
+$(document).ready(function () {
+    console.log("Cargado");
+});
+
+
+//por aitageo
+//validacion de login con jquery y ajax
+
+$(document).on('submit','#formlg', function (event) {
+    event.preventDefault();
+    console.log("form enviado");
+
+    $.ajax({
+        type: "POST",
+        url: "../Controlador/login.php",
+        data: $(this).serialize(),
+        dataType: "json",
+        ContentType: "application/json",
+        beforeSend: function(){
+           console.log("Enviando");
+        },
+        success: function (response) {
+            console.log(response);
+            if (!response.error) {
+                if (response.tipo == '1') {
+                    location.href = "../Vista/App/Admin/index.php?mensaje=$msj ";
+                } else if(response.tipo == '3'){
+                    location.href = "../Vista/App/Admin/index.php?mensaje=$msj ";
+                }
+            } else {
+                alert("Datos invalidos");
+            }
+        }
+    }).fail( function( jqXHR, textStatus,) {
+
+        if (jqXHR.status === 0) {
+      
+          alert('Not connect: Verify Network.');
+      
+        } else if (jqXHR.status == 404) {
+      
+          alert('Requested page not found [404]');
+      
+        } else if (jqXHR.status == 500) {
+      
+          alert('Internal Server Error [500].');
+      
+        } else if (textStatus === 'parsererror') {
+      
+        alert('Requested JSON parse failed.');
+      
+        } else if (textStatus === 'timeout') {
+      
+          alert('Time out error.');
+      
+        } else if (textStatus === 'abort') {
+      
+          alert('Ajax request aborted.');
+      
+        } else {
+      
+          alert('Uncaught Error: ' + jqXHR.responseText);
+      
+        }
+    
+});//fin linea 62
+
+ });

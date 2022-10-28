@@ -1,6 +1,11 @@
 <?php  
  include('cabeza2.php');
 ?>
+
+<?php
+include("../Modelo/conex.php");
+
+?>
        
         <!-- Services-->
         <section class="page-section mt-5" id="services">
@@ -18,7 +23,7 @@
                     </div>
                  <div class="col-md-6">
               
-                <form method="POST" action="../Controlador/login.php"  class="mt-5 ">
+                <form method="POST" action="../Controlador/login.php"  class="mt-5 " id="formlg">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-12">
 
@@ -29,7 +34,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Contraseña:</label>
-                                <input class="form-control" name="Contraseña" type="password" placeholder="Ingrese su contraseña *" required="required" data-validation-required-message="Ingrese su contraseña" />
+                                <input class="form-control" name="Contraseña" type="password" placeholder="Ingrese su contraseña *" required="required" data-validation-required-message="Ingrese su contraseña" autocomplete="current-password"/>
                                 <p class="help-block text-danger"></p>
                             </div>
                             
@@ -38,9 +43,11 @@
                     </div>
                     <div class="text-center">
                         
-                        <button class="btn btn-primary btn-xl text-uppercase" name="login" type="submit">Ingresar</button>
+                        <button type="submit" class="btn btn-primary btn-xl text-uppercase" name="login">Ingresar</button>
                     </div>
                 </form>
+                <br>
+                <div id="msg_error" class="alert alert_danger" role="alert" style="display:none;text-align:center; background-color: #cc310e">Error</div>
              </div>
         </div>
            
@@ -52,9 +59,9 @@
                     <div class="col-lg-4 text-lg-left">
                         Copyright &copy; DYLV Desing
                        
-                        <script>
+                        <!-- <script>
                             document.write(new Date().getFullYear());
-                        </script>
+                        </script> -->
                     </div>
                     <div class="col-lg-4 my-3 my-lg-0">
                         
