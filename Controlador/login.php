@@ -9,7 +9,7 @@ AND ClaveUsua = '".$_POST['Contraseña']."'
 
 if ($usuarios->num_rows == 1) {
      $data = $usuarios->fetch_assoc();
-     echo json_encode(array('error'=> false, 'tipo'=>$data['idTipoUsua']));
+     echo json_encode(array('error'=> false, 'tipo'=>$data['idTipoUsua'],$data['NombreUsua']));
 } else {
      echo json_encode(array('error'=>true));
 }
